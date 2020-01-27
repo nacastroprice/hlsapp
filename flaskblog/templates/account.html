@@ -48,15 +48,6 @@
                         {% endfor %}
                     {% endif %}
                 </div>
-                <div class="form-group">
-                   {{ form.audiofile.label() }}
-                    {{ form.audiofile(class="form-control-file") }}
-                    {% if form.audiofile.errors %}
-                        {% for error in form.audiofile.errors %}
-                            <span class="text-danger">{{ error }}</span></br>
-                        {% endfor %}
-                    {% endif %}
-                </div>
             </fieldset>
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}

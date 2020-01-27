@@ -41,7 +41,6 @@ class UpdateAccountForm(FlaskForm):
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
-    audiofile = FileField('Upload audiofile', validators=[FileAllowed(['wav'])])
 
     submit = SubmitField('Update')
 

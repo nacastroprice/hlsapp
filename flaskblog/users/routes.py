@@ -60,11 +60,6 @@ def account():
         current_user.email = form.email.data
         db.session.commit()
 
-        if form.audiofile.data:
-            # audio_file = save_audio(form.audiofile.data)
-            audio_file = form.audiofile.data # play_audio(form.audiofile.data)
-            return redirect(url_for('users.playaudio'),
-                            audio_file=audio_file)
 
         flash('Your account has been updated!', 'success')
         return redirect(url_for('users.account'))

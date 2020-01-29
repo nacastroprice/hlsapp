@@ -59,8 +59,6 @@ def account():
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
-
-
         flash('Your account has been updated!', 'success')
         return redirect(url_for('users.account'))
     elif request.method == 'GET':
@@ -70,10 +68,6 @@ def account():
     return render_template('account.html', title='Account',
                            image_file=image_file, form=form)
 
-# @login_required
-# def playaudio():
-#         return render_template('playaudio.html',
-#                             audio_file=audio_file)
 
 @users.route("/user/<string:username>")
 def user_posts(username):

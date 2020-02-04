@@ -48,10 +48,22 @@
                         {% endfor %}
                     {% endif %}
                 </div>
+                <div class="form-group">
+                    {{ form.audio.label() }}
+                    {{ form.audio(class="form-control-file") }}
+                    {% if form.audio.errors %}
+                        {% for error in form.audio.errors %}
+                            <span class="text-danger">{{ error }}</span></br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
             </fieldset>
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
         </form>
+        <div>
+            <a class="nav-item nav-link" href="{{ url_for('users.user_output', username=form.username) }}">This is your audio</a>
+        </div>
     </div>
 {% endblock content %}

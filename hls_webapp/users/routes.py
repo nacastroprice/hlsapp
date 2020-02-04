@@ -1,10 +1,11 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask import render_template, url_for, flash, redirect, request, Blueprint, send_file
 from flask_login import login_user, current_user, logout_user, login_required
 from hls_webapp import db, bcrypt
 from hls_webapp.models import User
 from hls_webapp.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm)
-from hls_webapp.users.utils import save_picture, send_reset_email #, play_audio
+from hls_webapp.users.utils import save_picture, send_reset_email , save_audio
+import os
 
 users = Blueprint('users', __name__)
 
@@ -55,6 +56,9 @@ def account():
             picture_file = save_picture(form.picture.data)
             current_user.image_file = picture_file
 
+        if form.audio.data:
+                audio_file = save_audio(form.audio.data)
+                current_user.sound_file = audio_file
 
         current_user.username = form.username.data
         current_user.email = form.email.data
@@ -67,6 +71,19 @@ def account():
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('account.html', title='Account',
                            image_file=image_file, form=form)
+
+@users.route("/user/<string:username>/output")
+@login_required
+def user_output(username):
+    # compute("input.wav", "hls/output.wav")
+    path='audio_files/'+ current_user.sound_file
+    sound_file = os.path.join('static', path).replace('\\','/')
+
+    return render_template('play_audio.html', title='User audio',
+                           sound_file=sound_file)
+
+
+
 
 
 # @users.route("/user/<string:username>")

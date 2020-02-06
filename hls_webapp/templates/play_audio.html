@@ -2,13 +2,22 @@
 
 {% block content %}
 
+<div class="list-group">
+  {% for file in sound_file %}
+    <a href="" class="list-group-item list-group-item-action">{{file.file_name}}</a>
+  {% endfor %}
+</div>
+<h1>{{file_path}}</h1>
+
+
 <figure>
     <figcaption>Listen to your file:</figcaption>
     <audio
         controls
-        src="{{"/" + sound_file }}" type="audio/wav">
+        src="" type="audio/wav">
             Your browser does not support the
             <code>audio</code> element.
     </audio>
 </figure>
+<<h4> '/' + file_path + file_name </h4>
 {% endblock content %}

@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint, send_file
 from flask_login import login_user, current_user, logout_user, login_required
 from hls_webapp import db, bcrypt
-from hls_webapp.models import User
+from hls_webapp.models import User, SoundFile
 from hls_webapp.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm)
 from hls_webapp.users.utils import save_picture, send_reset_email , save_audio
@@ -58,7 +58,8 @@ def account():
 
         if form.audio.data:
                 audio_file = save_audio(form.audio.data)
-                current_user.sound_file = audio_file
+                audio_file = SoundFile(file_name=audio_file,user=current_user)
+                db.session.add(audio_file)
 
         current_user.username = form.username.data
         current_user.email = form.email.data
@@ -76,11 +77,14 @@ def account():
 @login_required
 def user_output(username):
     # compute("input.wav", "hls/output.wav")
-    path='audio_files/'+ current_user.sound_file
-    sound_file = os.path.join('static', path).replace('\\','/')
+    path='audio_files/'
+    file_path = os.path.join('static', path).replace('\\','/')
+
+    user = User.query.filter_by(username=current_user.username).first_or_404()
+    sound_file = SoundFile.query.all()
 
     return render_template('play_audio.html', title='User audio',
-                           sound_file=sound_file)
+                           sound_file=sound_file, file_path=file_path, user=user)
 
 
 

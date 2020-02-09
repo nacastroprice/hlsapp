@@ -78,7 +78,7 @@ def account():
 def user_output(username):
     # compute("input.wav", "hls/output.wav")
     path='audio_files/'
-    file_path = os.path.join('static', path).replace('\\','/')
+    file_path = os.path.join('/static', path).replace('\\','/')
 
     user = User.query.filter_by(username=current_user.username).first_or_404()
     sound_file = SoundFile.query.all()
@@ -86,15 +86,6 @@ def user_output(username):
     return render_template('play_audio.html', title='User audio',
                            sound_file=sound_file, file_path=file_path, user=user)
 
-
-
-
-
-# @users.route("/user/<string:username>")
-# def user_posts(username):
-#     page = request.args.get('page', 1, type=int)
-#     user = User.query.filter_by(username=username).first_or_404()
-#     return render_template('user_posts.html', user=user)
 
 
 @users.route("/reset_password", methods=['GET', 'POST'])

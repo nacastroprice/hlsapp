@@ -1,4 +1,5 @@
 import hearinglosssimulator as hls
+import pyopencl
 
 
 def compute(in_filename, out_filename):

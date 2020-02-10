@@ -77,8 +77,7 @@ def account():
 @users.route("/user/output")
 @login_required
 def output():
-
-    compute("example_wav.wav", "output.wav")
+    compute("hls_webapp/example_wav.wav", "hls_webapp/output.wav")
     return send_file("output.wav")
 
 @users.route("/user/<string:username>/output")

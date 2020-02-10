@@ -5,6 +5,7 @@ from hls_webapp.models import User, SoundFile
 from hls_webapp.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm)
 from hls_webapp.users.utils import save_picture, send_reset_email , save_audio
+from hls_webapp.offline_wav_file import compute
 import os
 
 users = Blueprint('users', __name__)
@@ -73,10 +74,20 @@ def account():
     return render_template('account.html', title='Account',
                            image_file=image_file, form=form)
 
+@users.route("/user/output")
+@login_required
+def output(username):
+
+    compute("default_audio.wav", "hls_webapp/static/audio_files/output.wav")
+
+    return send_file("/static/audio_files/output.wav")
+
 @users.route("/user/<string:username>/output")
 @login_required
 def user_output(username):
-    # compute("input.wav", "hls/output.wav")
+
+    compute("default_audio.wav", "hls_webapp/static/audio_files/output.wav")
+
     path='audio_files/'
     file_path = os.path.join('/static', path).replace('\\','/')
 

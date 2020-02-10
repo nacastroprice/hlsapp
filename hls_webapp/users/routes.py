@@ -76,17 +76,14 @@ def account():
 
 @users.route("/user/output")
 @login_required
-def output(username):
+def output():
 
-    compute("default_audio.wav", "hls_webapp/static/audio_files/output.wav")
-
-    return send_file("/static/audio_files/output.wav")
+    compute("example_wav.wav", "output.wav")
+    return send_file("output.wav")
 
 @users.route("/user/<string:username>/output")
 @login_required
 def user_output(username):
-
-    compute("default_audio.wav", "hls_webapp/static/audio_files/output.wav")
 
     path='audio_files/'
     file_path = os.path.join('/static', path).replace('\\','/')

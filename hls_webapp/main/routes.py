@@ -11,8 +11,8 @@ def home():
 
     return render_template('home.html')
 
+@main.route("/simulator")
+def simulator():
+    return render_template('simulator.html', title='Simulator')
 
-@main.route("/about")
-def about():
-    return render_template('about.html', title='About')
 

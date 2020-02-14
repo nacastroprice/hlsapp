@@ -3,7 +3,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from hls_webapp import db, bcrypt
 from hls_webapp.models import User, SoundFile
 from hls_webapp.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
-                                   RequestResetForm, ResetPasswordForm)
+                                   RequestResetForm, ResetPasswordForm, SimulationOptions)
 from hls_webapp.users.utils import save_picture, send_reset_email , save_audio
 from hls_webapp.offline_wav_file import compute
 import os
@@ -77,21 +77,22 @@ def account():
 @users.route("/user/output")
 @login_required
 def output():
-    compute("hls_webapp/example_wav.wav", "hls_webapp/output.wav")
+    compute("hls_webapp/ans_02.wav", "hls_webapp/output.wav")
     return send_file("output.wav")
 
-@users.route("/user/<string:username>/output")
+@users.route("/user/<string:username>/simulation", methods=['GET', 'POST'])
 @login_required
-def user_output(username):
-
+def user_simulation(username):
     path='audio_files/'
     file_path = os.path.join('/static', path).replace('\\','/')
 
-    user = User.query.filter_by(username=current_user.username).first_or_404()
-    sound_file = SoundFile.query.all()
-
-    return render_template('play_audio.html', title='User audio',
-                           sound_file=sound_file, file_path=file_path, user=user)
+    form = SimulationOptions()
+    if request.method == 'GET':
+        sound_files = SoundFile.query.filter_by(user_id=current_user.id)
+        categories = [(g.id, g.file_name) for g in sound_files]
+        form.group_id.choices = categories
+    return render_template('simulation_setup.html', title='Simulation Set Up',
+                            form=form, file_path=file_path)
 
 
 

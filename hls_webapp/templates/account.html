@@ -63,10 +63,7 @@
             </div>
         </form>
         <div>
-            <a class="nav-item nav-link" href="{{ url_for('users.user_output', username=form.username) }}">This is your audio</a>
-        </div>
-        <div>
-            <a class="nav-item nav-link" href="{{ url_for('users.output', username=form.username) }}">This is your tranformed audio</a>
+            <a class="nav-item nav-link" href="{{ url_for('users.user_simulation', username=form.username) }}">This is your audio</a>
         </div>
     </div>
 {% endblock content %}

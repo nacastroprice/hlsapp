@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
 from hls_webapp.models import User
@@ -76,3 +76,12 @@ class ResetPasswordForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset Password')
+
+class SimulationOptions(FlaskForm):
+
+    group_id = SelectField(u'Sound Group', coerce=int)
+
+    def edit_user(request, id):
+        # user = current_user.id:
+        form = SimulationOptions(request.POST, obj=current_user.sound_file)
+        form.group_id.choices = [(g.id, g.file_name) for g in Group.query.all()]

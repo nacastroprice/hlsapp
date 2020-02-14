@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<script type="text/javascript">
+
+function changeFunc() {
+var selectBox = document.getElementById("inlineFormCustomSelectPref");
+var file_name = selectBox.options[selectBox.selectedIndex].text;
+var file_path = "{{file_path}}";
+var full_file_path = file_path + file_name;
+var sound = document.getElementById("sound");
+sound.src = full_file_path;
+}
+
+</script>
+<div>
+    <div>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Account Info</legend>
+                <div class="form-group">
+                    {{ form.group_id.label(class="form-control-label") }}
+                    {{ form.group_id(class="custom-select my-1 mr-sm-2", id="inlineFormCustomSelectPref", onchange="changeFunc();") }}
+                </div>
+        </div>
+    </div>
+<figure>
+    <figcaption>Listen to your file:</figcaption>
+    <audio id="sound"
+        controls
+        src="" type="audio/wav">
+            Your browser does not support the
+            <code>audio</code> element.
+    </audio>
+</figure>
+
+<div>
+    <a class="nav-item nav-link" href="{{ url_for('users.output') }}">This is your tranformed audio</a>
+</div>
+{% endblock content %}

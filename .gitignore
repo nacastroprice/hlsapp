@@ -4,6 +4,7 @@ __pycache__/
 .vscode
 # C extensions
 *.so
+flask_session/
 
 # Distribution / packaging
 bin/

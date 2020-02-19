@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint, send_file
+from flask import Flask, session, render_template, url_for, flash, redirect, request, Blueprint, send_file
 from flask_login import login_user, current_user, logout_user, login_required
 from hls_webapp import db, bcrypt
 from hls_webapp.models import User, SoundFile
@@ -81,7 +81,8 @@ def account():
 @users.route("/user/output")
 @login_required
 def output():
-    file_name = session[current_user.id][file_name]
+    # file_name = session[current_user.id][file_name]
+    file_name = session.get('file')
     # compute("hls_webapp/ans_02.wav", "hls_webapp/output.wav")
     # return send_file("output.wav")
     # audio_file_id = audio_file
@@ -102,7 +103,7 @@ def user_simulation(username):
     if form.validate_on_submit():
         audio_file_id = int(form.group_id.data)
         file_name = form.group_id.choices[audio_file_id - 1][1]
-        flask.session[current_user.id] = file_name
+        session["file"] = file_name
         return redirect(url_for('users.output'))
         # return render_template('output.html', title='output', audio_file_id=audio_file_id, file_path=file_path)
 

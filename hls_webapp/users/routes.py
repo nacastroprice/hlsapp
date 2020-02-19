@@ -81,18 +81,22 @@ def account():
 @users.route("/user/output")
 @login_required
 def output():
-    # file_name = session[current_user.id][file_name]
+    path_in = "audio_files_in/"
+    path_out = "audio_files_out/"
+    file_path_out = os.path.join('/static', path_out).replace('\\', '/')
+    file_path_in = os.path.join('/static', path_in).replace('\\', '/')
     file_name = session.get('file')
-    # compute("hls_webapp/ans_02.wav", "hls_webapp/output.wav")
-    # return send_file("output.wav")
-    # audio_file_id = audio_file
-    return render_template('output.html', title='output', file_name=file_name)
+    in_file = file_path_in + file_name
+    out_file = file_path_out + "sim" + file_name
+    # compute(in_file, out_file)
+    # save the new file to db
+    return render_template('output.html', title='output', in_file=in_file, out_file=out_file)
 
 
 @users.route("/user/<string:username>/simulation", methods=['GET', 'POST'])
 @login_required
 def user_simulation(username):
-    path = 'audio_files/'
+    path = 'audio_files_in/'
     file_path = os.path.join('/static', path).replace('\\', '/')
 
     form = SimulationOptions()
@@ -105,7 +109,6 @@ def user_simulation(username):
         file_name = form.group_id.choices[audio_file_id - 1][1]
         session["file"] = file_name
         return redirect(url_for('users.output'))
-        # return render_template('output.html', title='output', audio_file_id=audio_file_id, file_path=file_path)
 
     return render_template('simulation_setup.html', title='Simulation Set Up', form=form, file_path=file_path)
 

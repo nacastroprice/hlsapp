@@ -1,7 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1 id='demo'>The audio file you chose is: {{in_file}}</h1>
-<h1 id='demo'>The audio file you got is: {{out_file}}</h1>
+<h2 id='demo'>The audio file you got is: {{out_file}}</h2>
 
+<figure>
+    <figcaption>Listen to your file:</figcaption>
+    <audio id="sound" controls src={{out_file}} type="audio/wav">
+        Your browser does not support the
+        <code>audio</code> element.
+    </audio>
+</figure>
 {% endblock content %}

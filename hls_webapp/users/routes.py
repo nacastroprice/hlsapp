@@ -81,16 +81,18 @@ def account():
 @users.route("/user/output")
 @login_required
 def output():
-    path_in = "audio_files_in/"
-    path_out = "audio_files_out/"
-    file_path_out = os.path.join('/static', path_out).replace('\\', '/')
-    file_path_in = os.path.join('/static', path_in).replace('\\', '/')
+    path_in = "static/audio_files_in/"
+    path_out = "static/audio_files_out/"
+    file_path_out = os.path.join(
+        "hls_webapp", path_out).replace('\\', '/')
+    file_path_in = os.path.join(
+        "hls_webapp", path_in).replace('\\', '/')
     file_name = session.get('file')
     in_file = file_path_in + file_name
     out_file = file_path_out + "sim" + file_name
-    # compute(in_file, out_file)
+    compute(in_file, out_file)
     # save the new file to db
-    return render_template('output.html', title='output', in_file=in_file, out_file=out_file)
+    return render_template('output.html', title='output', in_file=in_file, out_file="/" + path_out + "sim" + file_name)
 
 
 @users.route("/user/<string:username>/simulation", methods=['GET', 'POST'])

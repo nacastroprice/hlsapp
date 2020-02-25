@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h2>Enter the loss of decibels corresponding to each given frequency.<h2>
+    
+
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+      <table class="table">
+        <thead>
+            <tr>
+                <th>Frequency (Hz)</th>
+                <th>Left Ear Hearing Loss (dB)</th>
+                <th>Right Ear Hearing Loss (dB)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>125</td>
+                <td>{{form.hlleft125(size=3)}}</td>
+                <td>{{form.hlright125(size=3)}}</td>
+            </tr>
+            <tr>
+                <td>250</td>
+                <td>{{form.hlleft250(size=3)}}</td>
+                <td>{{form.hlright250(size=3)}}</td>
+            </tr>
+            <tr>
+                <td>500</td>
+                <td>{{form.hlleft500(size=3)}}</td>
+                <td>{{form.hlright500(size=3)}}</td>
+            </tr>     
+            <tr>
+              <td>1000</td>
+              <td>{{form.hlleft1000(size=3)}}</td>
+              <td>{{form.hlright1000(size=3)}}</td>
+          </tr>    
+          <tr>
+            <td>2000</td>
+            <td>{{form.hlleft2000(size=3)}}</td>
+            <td>{{form.hlright2000(size=3)}}</td>
+        </tr>     
+        <tr>
+          <td>4000</td>
+          <td>{{form.hlleft4000(size=3)}}</td>
+          <td>{{form.hlright4000(size=3)}}</td>
+      </tr> 
+      <tr>
+        <td>8000</td>
+        <td>{{form.hlleft8000(size=3)}}</td>
+        <td>{{form.hlright8000(size=3)}}</td>
+    </tr> 
+        </tbody>
+    </table>
+    <h4>On a scale of 0-10, with 10 being most extreme, how much do you struggle with speech intelligibility?</h4>
+    <p>{{form.compression(size=3)}}</p>
+        
+    <p>{{form.submit()}}</p>
+
+ </form>
+
+
+{% endblock content %}

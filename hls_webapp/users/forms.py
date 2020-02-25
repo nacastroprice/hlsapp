@@ -1,9 +1,14 @@
+from hls_webapp.models import User
+from flask_login import current_user
+from wtforms.validators import DataRequired, Length, NumberRange, Email, EqualTo, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, InputRequired
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, InputRequired
-from flask_login import current_user
-from hls_webapp.models import User
+<< << << < HEAD
+== == == =
+>>>>>> > 26e5989f0633a466d3c72fb64c6ca29be75d4486
 
 
 class RegistrationForm(FlaskForm):
@@ -95,3 +100,36 @@ class SimulationOptions(FlaskForm):
     #     form = SimulationOptions(request.POST, obj=current_user.sound_file)
     #     form.group_id.choices = [(g.id, g.file_name)
     #                              for g in Group.query.all()]
+
+
+class SimulationFreqForm(FlaskForm):
+    hlleft125 = IntegerField('', validators=[DataRequired(), NumberRange(
+        min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
+    hlright125 = IntegerField('', validators=[DataRequired(), NumberRange(
+        min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
+    hlleft250 = IntegerField('', validators=[DataRequired(), NumberRange(
+        min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
+    hlright250 = IntegerField('', validators=[DataRequired(), NumberRange(
+        min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
+    hlleft500 = IntegerField('', validators=[DataRequired(), NumberRange(
+        min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
+    hlright500 = IntegerField('', validators=[DataRequired(), NumberRange(
+        min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
+    hlleft1000 = IntegerField('', validators=[DataRequired(), NumberRange(
+        min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
+    hlright1000 = IntegerField('', validators=[DataRequired(), NumberRange(
+        min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
+    hlleft2000 = IntegerField('', validators=[DataRequired(), NumberRange(
+        min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
+    hlright2000 = IntegerField('', validators=[DataRequired(), NumberRange(
+        min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
+    hlleft4000 = IntegerField('', validators=[DataRequired(), NumberRange(
+        min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
+    hlright4000 = IntegerField('', validators=[DataRequired(), NumberRange(
+        min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
+    hlleft8000 = IntegerField('', validators=[DataRequired(), NumberRange(
+        min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
+    hlright8000 = IntegerField('', validators=[DataRequired(), NumberRange(
+        min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
+    compression = IntegerField('', validators=[NumberRange(min=0, max=10)])
+    submit = SubmitField('Enter Data')

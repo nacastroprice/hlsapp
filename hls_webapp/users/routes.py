@@ -1,11 +1,10 @@
 from flask import Flask, session, render_template, url_for, flash, redirect, request, Blueprint, send_file
 from flask_login import login_user, current_user, logout_user, login_required
 from hls_webapp import db, bcrypt
-from hls_webapp.models import User, SoundFile
-from hls_webapp.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
-                                    RequestResetForm, ResetPasswordForm, SimulationOptions)
+from hls_webapp.models import User, SoundFile, DecibelLoss
+from hls_webapp.users.forms import (
+    RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, SimulationFreqForm)
 from hls_webapp.users.utils import save_picture, send_reset_email, save_audio
-from hls_webapp.offline_wav_file import compute
 import os
 
 users = Blueprint('users', __name__)
@@ -145,3 +144,16 @@ def reset_token(token):
         flash('Your password has been updated! You are now able to log in', 'success')
         return redirect(url_for('users.login'))
     return render_template('reset_token.html', title='Reset Password', form=form)
+
+
+@users.route("/simulator", methods=['GET', 'POST'])
+@login_required
+def simulator():
+    form = SimulationFreqForm()
+    if form.validate_on_submit():
+        sim_data = DecibelLoss(hll125=form.hlleft125.data, hlr125=form.hlright125.data, hll250=form.hlleft250.data, hlr250=form.hlright250.data, hll500=form.hlleft500.data, hlr500=form.hlright500.data, hll1000=form.hlleft1000.data, hlr1000=form.hlright1000.data,
+                               hll2000=form.hlleft2000.data, hlr2000=form.hlright2000.data, hll4000=form.hlleft4000.data, hlr4000=form.hlright4000.data, hll8000=form.hlleft8000.data, hlr8000=form.hlright8000.data, compress=form.compression.data, user=current_user)
+        db.session.add(sim_data)
+        db.session.commit()
+        return redirect(url_for('main.home'))
+    return render_template('simulator.html', form=form, title='Simulator')

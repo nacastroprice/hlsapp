@@ -15,7 +15,8 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
+    image_file = db.Column(db.String(20), nullable=False,
+                           default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
     sound_file = db.relationship('SoundFile', backref='user', lazy=True)
     sim_data = db.relationship('DecibelLoss', backref='user', lazy=True)
@@ -40,7 +41,8 @@ class User(db.Model, UserMixin):
 class SoundFile(db.Model):
     __tablename__ = 'sound_file'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    file_name = db.Column(db.String(120), nullable=False, default='default_audio.wav')
+    file_name = db.Column(db.String(120), nullable=False,
+                          default='default_audio.wav')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):

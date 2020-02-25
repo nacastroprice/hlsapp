@@ -2,8 +2,8 @@ from flask import Flask, session, render_template, url_for, flash, redirect, req
 from flask_login import login_user, current_user, logout_user, login_required
 from hls_webapp import db, bcrypt
 from hls_webapp.models import User, SoundFile, DecibelLoss
-from hls_webapp.users.forms import (
-    RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, SimulationFreqForm)
+from hls_webapp.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
+                                    RequestResetForm, ResetPasswordForm, SimulationOptions, SimulationFreqForm)
 from hls_webapp.users.utils import save_picture, send_reset_email, save_audio
 import os
 

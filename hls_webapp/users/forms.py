@@ -6,9 +6,6 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-<< << << < HEAD
-== == == =
->>>>>> > 26e5989f0633a466d3c72fb64c6ca29be75d4486
 
 
 class RegistrationForm(FlaskForm):

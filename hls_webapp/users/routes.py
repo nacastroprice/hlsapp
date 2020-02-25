@@ -5,6 +5,7 @@ from hls_webapp.models import User, SoundFile, DecibelLoss
 from hls_webapp.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                     RequestResetForm, ResetPasswordForm, SimulationOptions, SimulationFreqForm)
 from hls_webapp.users.utils import save_picture, send_reset_email, save_audio
+from hls_webapp.offline_wav_file import compute
 import os
 
 users = Blueprint('users', __name__)

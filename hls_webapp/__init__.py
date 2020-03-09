@@ -14,7 +14,7 @@ login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 mail = Mail()
-from hls_webapp.models import User
+
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -22,9 +22,10 @@ def create_app(config_class=Config):
     sess.init_app(app)
     db.init_app(app)
 
+    from hls_webapp.models import User, SoundFileIn, DecibelLoss, SoundFileOut
+
     with app.app_context():
         db.create_all()
-
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)

@@ -1,35 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<script type="text/javascript">
-
-    document.addEventListener('readystatechange', event => {
-
-        if (event.target.readyState === "complete") {
-            function loadSound() {
-                var demo = document.getElementById("demo");
-                sound.innerHTML = "Hello who are you";
-
-                var file = "{{sound_comp}}";
-                var sound = document.getElementById("sound");
-                sound.src = file;
-            }
-
-            loadSound();
-        }
-
-    });
-
-
-</script>
-<h2 id='demo'>The audio file you got is: {{audio_comp}}</h2>
-
-
 <figure>
     <figcaption>Listen to your file:</figcaption>
-    <audio id="sound" controls src="" type="audio/wav">
-        Your browser does not support the
-        <code>audio</code> element.
+    <audio id="sound1" controls>
+        <source src="{{audio_comp}}" type="audio/wav" />
     </audio>
 </figure>
 

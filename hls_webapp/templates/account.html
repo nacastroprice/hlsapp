@@ -1,108 +1,88 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="content-section">
-    <div class="media">
-        <img class="rounded-circle account-img" src="{{ image_file }}">
-        <div class="media-body">
-            <h2 class="account-heading">{{ current_user.username }}</h2>
-            <p class="text-secondary">{{ current_user.email }}</p>
+
+<div class="d-md-flex flex-md-equal w-100 my-md-1 pl-md-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="border-bottom mb-4">Account Info</h2>
+            </div>
+        </div>
+        <div class="row pl-3">
+            <div class="col-md-9 bg-light p-md-1">
+                <form>
+                    <div class="form-group row pt-1">
+                        <label for="staticUsername" class="col-sm-2 col-form-label pr-md-1 pl-md-4">Username</label>
+                        <div class="col-sm-7">
+                            <input type="text" readonly class="form-control" id="staticUsername"
+                                placeholder="{{current_user.username}}">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="staticEmail" class="col-sm-2 col-form-label pr-md-1 pl-md-4">Email</label>
+                        <div class="col-sm-7">
+                            <input type="text" readonly class="form-control" id="staticEmail"
+                                placeholder="{{current_user.email}}">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row bg-light my-3 ml-0">
+            <div class="col-12">
+                <h4>Audiograms</h4>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="Name">First</th>
+                            <th scope="col">Speech Intelligibility Score</th>
+                            <th scope="col">View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for g in choices_audiogram %}
+                        <tr>
+                            <td>{{ g[1] }}</td>
+                            <td>{{ g[2] }}</td>
+                            <td><button>View/Edit</button></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <form action="{{url_for('users.user_audiogramsetup', username=current_user.username)}}">
+                    <input type="submit" value="Add +" />
+                </form>
+            </div>
+        </div>
+
+        <div class="row bg-light my-3 ml-0">
+            <div class="col-12">
+                <h4>Input Files</h4>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="Name">Name</th>
+                            <th scope="col">-</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for g in choices_audio %}
+                        <tr>
+                            <td>{{ g[1] }}</td>
+                            <td><button>Play</button></td>
+
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <form action="{{url_for('users.user_inputfile', username=current_user.username)}}">
+                    <input type="submit" value="Add +" />
+                </form>
+            </div>
         </div>
     </div>
-    <form method="POST" action="" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Account Info</legend>
-            <div class="form-group">
-                {{ form.username.label(class="form-control-label") }}
-
-                {% if form.username.errors %}
-                {{ form.username(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.username.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                {{ form.username(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
-            <div class="form-group">
-                {{ form.email.label(class="form-control-label") }}
-                {% if form.email.errors %}
-                {{ form.email(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.email.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                {{ form.email(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
-            <div class="form-group">
-                {{ form.picture.label() }}
-                {{ form.picture(class="form-control-file") }}
-                {% if form.picture.errors %}
-                {% for error in form.picture.errors %}
-                <span class="text-danger">{{ error }}</span></br>
-                {% endfor %}
-                {% endif %}
-            </div>
-            <div class="form-group">
-                {{ form.audio.label() }}
-                {{ form.audio(class="form-control-file") }}
-                {% if form.audio.errors %}
-                {% for error in form.audio.errors %}
-                <span class="text-danger">{{ error }}</span></br>
-                {% endfor %}
-                {% endif %}
-            </div>
-            <!-- <th>Frequency (Hz)</th>
-        <th>Left Ear Hearing Loss (dB)</th>
-        <th>Right Ear Hearing Loss (dB)</th> -->
-
-            <fieldset class="form-group">
-                <div class="form-group">
-                    {{ form.audiogram_name.label(class="form-control-label") }}
-                    {% if form.audiogram_name.errors %}
-                    {{ form.audiogram_name(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.audiogram_name.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    {{ form.audiogram_name(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <h6>Enter the loss of decibels corresponding to each given frequency:</h6>
-                <div class="container">
-
-                    <div class="form-group">
-                        <div class="row d-flex justify-content-center">
-                            <label class="col-sm col-form-label pl-5">Left Ear Hearing Loss (dB)</label>
-                            <label class="col-sm col-form-label pl-5">Right Ear Hearing Loss (dB)</label>
-                        </div>
-                        <div class="row d-flex justify-content-center">
-                            {{form.frequency_loss_left(class="form-control col-sm-5 my-1 mx-1 px-5 justify-content-center", size=3)}}
-                            {{form.frequency_loss_right(class="form-control col-sm-5 my-1 mx-1 px-5 justify-content-center", size=3)}}
-                        </div>
-                        <div class="row d-flex justify-content-center">
-                            {{form.compression_loss.label()}}
-                            {{form.compression_loss(class="form-control my-1 mx-1 col-sm-5", size=3)}}
-                        </div>
-                    </div>
-                </div>
 </div>
-</fieldset>
 
-<div class="form-group">
-    {{ form.submit(class="btn btn-outline-info") }}
-</div>
-</form>
-<div>
-    <a class="nav-item nav-link" href="{{ url_for('users.user_simulation', username=form.username) }}">This is your
-        audio</a>
-</div>
-</div>
 {% endblock content %}

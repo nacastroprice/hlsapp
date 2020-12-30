@@ -1,14 +1,125 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1>Home Page</h1>
+<div class="position-relative overflow-hidden p-3 p-md-1 m-md-3 text-white text-center"
+    style="background-color: #576099;margin-bottom: 5%;">
+    <div class="col-md-9 p-lg-3 mx-auto my-2">
+        <h1 class="display-4 font-weight-normal text-white">We hear you. And now others can too.</h1>
+        <p class="lead font-weight-normal">There are currently 466 million people living with a hearing impairment.There
+            are currently 466 million people living with a hearing impairment.</p>
+        <a class="btn btn-secondary" href="/account">Start Simulation</a>
+    </div>
+</div>
+<!-- These are the three what, how and why -->
+<div class="d-md-flex flex-md-equal w-100 my-md-1 pl-md-3">
+    <div class="bg-light mr-md-3 pt-3 px-3 pt-md-1 px-md-5 text-center  overflow-hidden">
+        <div class="my-3 py-3">
+            <h2 class="display-5">What</h2>
+            <p class="lead">The Audemo simulator is a customizable tool for hearing impaired individuals to demonstrate
+                to others what their auditory experience is like- what they can and cannot hear and how that varies
+                between situations and environments.</p>
+        </div>
+    </div>
+    <div class="bg-light mr-md-3 pt-3 px-3 pt-md-1 px-md-5 overflow-hidden text-center">
+        <div class="my-3 p-3">
+            <h2 class="display-5">How</h2>
+            <ol style="text-align: left;">
+                <li>
+                    <p class="lead">Starting with a mathematical model of the auditory system, users customize the
+                        simulator by
+                        entering their audiogram data and answering a few questions about speech intelligibility.</p>
+                </li>
+                <li>
+                    <p class="lead">The user uploads the sound file they wish to use for the simulation.</p>
+                </li>
+                <li>
+                    <p class="lead">The situation and environment parameters are set.</p>
+                </li>
+                <li>
+                    <p class="lead">The simulator produces an output sound that has been modified to represent how that
+                        sound would
+                        be
+                        perceived by the individual with impaired hearing.</p>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+    <div class="bg-light mr-md-3 pt-3 px-3 pt-md-1 px-md-5 text-center overflow-hidden">
+        <div class="my-3 p-3">
+            <h2 class="display-5">Why</h2>
+            <p class="lead">Communication is the foundation of all human relationships.
 
-<h1>We hear you.</h1>
-<h1>And now others can too.</h1>
-<hr>
-<p>There are currently 466 million people living with a hearing impairment.</p>
-<p>The HISEA allows a hearing impaired indivdual to demonstrate to others what it sounds like to live in their shoes.
-</p>
-<hr>
+                To successfully communicate, there must be a “talker” and a “listener.” For those with impaired hearing,
+                being a listener can be a frustrating and cognitively demanding activity. Listening is a complex process
+                that many of us take for granted. If someone tells you they are hard of hearing, your first instinct may
+                be to simply speak louder. However, this often results in more harm than good. Successful communication
+                depends on a lot more than volume level. Many other factors play a significant role in the ability to
+                understand what is being said, like background noise, distance between speakers, eye contact, visibility
+                of the speaker’s mouth, and direction of sound. While the Audemo simulator may not be able to precisely
+                simulate all of these factors, we hope it will give individuals with normal hearing a glimpse into the
+                intricate auditory world of impaired hearing. We hope this glimpse will increase understanding and
+                patience and can be used as the basis for conversations on how to improve communication.</p>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-3 text-white pt-3 pb-4" style="background-color: #5b69e6;text-align: center;">
+            <svg preserveAspectRatio="xMidYMin meet" xmlns="http://www.w3.org/2000/svg" width="50" height="50"
+                viewBox="5 0 24 24" fill="currentColor">
+                <path
+                    d="M22 8.51v1.372h-2.538c.02-.223.038-.448.038-.681 0-.237-.017-.464-.035-.69h2.535zm-10.648-6.553v-1.957h1.371v1.964c-.242-.022-.484-.035-.726-.035-.215 0-.43.01-.645.028zm5.521 1.544l1.57-1.743 1.019.918-1.603 1.777c-.25-.297-.593-.672-.986-.952zm-10.738.952l-1.603-1.777 1.019-.918 1.57 1.743c-.392.28-.736.655-.986.952zm-1.597 5.429h-2.538v-1.372h2.535c-.018.226-.035.454-.035.691 0 .233.018.458.038.681zm9.462 9.118h-4c-.276 0-.5.224-.5.5s.224.5.5.5h4c.276 0 .5-.224.5-.5s-.224-.5-.5-.5zm0 2h-4c-.276 0-.5.224-.5.5s.224.5.5.5h4c.276 0 .5-.224.5-.5s-.224-.5-.5-.5zm.25 2h-4.5l1.188.782c.154.138.38.218.615.218h.895c.234 0 .461-.08.615-.218l1.187-.782zm3.75-13.799c0 3.569-3.214 5.983-3.214 8.799h-1.989c-.003-1.858.87-3.389 1.721-4.867.761-1.325 1.482-2.577 1.482-3.932 0-2.592-2.075-3.772-4.003-3.772-1.925 0-3.997 1.18-3.997 3.772 0 1.355.721 2.607 1.482 3.932.851 1.478 1.725 3.009 1.72 4.867h-1.988c0-2.816-3.214-5.23-3.214-8.799 0-3.723 2.998-5.772 5.997-5.772 3.001 0 6.003 2.051 6.003 5.772z" />
+            </svg>
+            <h3 class="text-white"> Aid in Requesting Accommodations</h3>
+        </div>
+        <div class="col-3 text-white pt-3 pb-4" style="background-color: #36269d;text-align: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M14.078 4.232l-12.64 12.639-1.438 7.129 7.127-1.438 12.641-12.64-5.69-5.69zm-10.369 14.893l-.85-.85 11.141-11.125.849.849-11.14 11.126zm2.008 2.008l-.85-.85 11.141-11.125.85.85-11.141 11.125zm18.283-15.444l-2.816 2.818-5.691-5.691 2.816-2.816 5.691 5.689z" />
+            </svg>
+            <h3 class="text-white">Increase Understanding</h3>
+        </div>
+        <div class="col-3 text-white pt-3 pb-4" style="background-color: #5b69e6;text-align: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M10 3.002c4.411 0 8 2.849 8 6.35 0 3.035-3.029 6.311-7.925 6.311-1.58 0-2.718-.317-3.718-.561-.966.593-1.256.813-3.006 1.373.415-1.518.362-2.182.331-3.184-.837-1.001-1.682-2.069-1.682-3.939 0-3.501 3.589-6.35 8-6.35zm0-2.002c-5.281 0-10 3.526-10 8.352 0 1.711.615 3.391 1.705 4.695.047 1.527-.851 3.718-1.661 5.312 2.168-.391 5.252-1.258 6.649-2.115 1.181.289 2.312.421 3.382.421 5.903 0 9.925-4.038 9.925-8.313 0-4.852-4.751-8.352-10-8.352zm11.535 11.174c-.161.488-.361.961-.601 1.416 1.677 1.262 2.257 3.226.464 5.365-.021.745-.049 1.049.138 1.865-.892-.307-.979-.392-1.665-.813-2.127.519-4.265.696-6.089-.855-.562.159-1.145.278-1.74.364 1.513 1.877 4.298 2.897 7.577 2.1.914.561 2.933 1.127 4.352 1.385-.53-1.045-1.117-2.479-1.088-3.479 1.755-2.098 1.543-5.436-1.348-7.348zm-15.035-3.763c-.591 0-1.071.479-1.071 1.071s.48 1.071 1.071 1.071 1.071-.479 1.071-1.071-.48-1.071-1.071-1.071zm3.5 0c-.591 0-1.071.479-1.071 1.071s.48 1.071 1.071 1.071 1.071-.479 1.071-1.071-.48-1.071-1.071-1.071zm3.5 0c-.591 0-1.071.479-1.071 1.071s.48 1.071 1.071 1.071 1.071-.479 1.071-1.071-.48-1.071-1.071-1.071z" />
+            </svg>
+            <h3 class="text-white">Improve Communication</h3>
+        </div>
+        <div class="col-3 text-white pt-3 pb-4" style="background-color: #36269d;text-align: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M4.967 15c-2.743 0-4.967-2.238-4.967-5 0-2.761 2.224-5 4.967-5h5.033v10h-5.033zm7.04 7.475c-.52-.424-.902-.994-1.095-1.637l-1.151-3.827h-5.125l1.905 5.883c.214.659.828 1.106 1.521 1.106h3.439c.358 0 .677-.225.797-.562.12-.337.015-.713-.263-.939l-.028-.024zm-.007-17.475v10c3.164.509 7.161 1.992 12 5v-20c-4.964 3.085-8.876 4.502-12 5z" />
+            </svg>
+            <h3 class="text-white">Raise Awareness</h3>
+        </div>
+    </div>
+</div>
+<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+    <div class="bg-warning mr-md-3 pt-1 px-3 pt-md-1 px-md-5 text-center overflow-hidden">
+        <div class="my-3 p-3">
+            <h2 class="display-5">Disclaimer</h2>
+            <p class="lead">
+                Simulating a disability is nearly impossible.
+                Millions of Americans live day to day with all aspects of life affected by their disability.
+                Simply stated- a brief activity can never replace a lifetime of experiences.
+                ​
+                The disability experience is not designed to mimic these experiences but rather highlight how often
+                elements of disability are easily overlooked in our world. A significant impact of a disability is often
+                invisible… and a good point to remember is that many disabilities themselves are invisible.
+
+                The challenge of a disability is not simply physical… it is social, environmental, and attitudinal.
+                Faced with these challenges, individuals often adapt and develop coping skills, none of which are
+                represented in a simulation.
+
+                Pity, sympathy, judgement, and focusing on one obvious difficulty encountered is not encouraged.
+                Instead, this simulation is intended to encourage patience, understanding, awareness, and conversation
+                on the role we all play in fostering an inclusive environment. </p>
+        </div>
+    </div>
+</div>
+
 
 {% endblock content %}

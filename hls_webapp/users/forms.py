@@ -75,13 +75,59 @@ class SimulationFreqFormR(FlaskForm):
         min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
 
 
+class CombinedAudiogramForm(FlaskForm):
+
+    audiogram_name = StringField('Give this audiogram a name',
+                                 validators=[DataRequired(), Length(min=2, max=120)])
+
+    frequency_loss_left = FormField(SimulationFreqFormL)
+
+    frequency_loss_right = FormField(SimulationFreqFormR)
+
+    compression_loss = IntegerField('compression_loss (0-10):', validators=[
+        NumberRange(min=0, max=10)])
+
+    submit = SubmitField('Add')
+
+    def validate_username(self, username):
+        if username.data != current_user.username:
+            user = User.query.filter_by(username=username.data).first()
+            if user:
+                raise ValidationError(
+                    'That username is taken. Please choose a different one.')
+
+    def validate_email(self, email):
+        if email.data != current_user.email:
+            user = User.query.filter_by(email=email.data).first()
+            if user:
+                raise ValidationError(
+                    'That email is taken. Please choose a different one.')
+
+
+class InputAudioForm(FlaskForm):
+    audio = FileField('Upload .wav file', validators=[FileAllowed(['wav'])])
+    submit = SubmitField('Add')
+
+    def validate_username(self, username):
+        if username.data != current_user.username:
+            user = User.query.filter_by(username=username.data).first()
+            if user:
+                raise ValidationError(
+                    'That username is taken. Please choose a different one.')
+
+    def validate_email(self, email):
+        if email.data != current_user.email:
+            user = User.query.filter_by(email=email.data).first()
+            if user:
+                raise ValidationError(
+                    'That email is taken. Please choose a different one.')
+
+
 class UpdateAccountForm(FlaskForm):
     username = StringField('Username',
                            validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
-    picture = FileField('Update Profile Picture', validators=[
-                        FileAllowed(['jpg', 'png'])])
 
     audio = FileField('Upload .wav file', validators=[FileAllowed(['wav'])])
 
@@ -92,7 +138,7 @@ class UpdateAccountForm(FlaskForm):
 
     frequency_loss_right = FormField(SimulationFreqFormR)
 
-    compression_loss = IntegerField('compression_loss', validators=[
+    compression_loss = IntegerField('compression_loss (0-10):', validators=[
         NumberRange(min=0, max=10)])
 
     submit = SubmitField('Update')
@@ -138,7 +184,7 @@ class SimulationOptions(FlaskForm):
     frequency_loss_group_id = SelectField(u'Audiogram Group', coerce=int,
                                           validators=[InputRequired()])
 
-    submit = SubmitField('Submit simulation preferences')
+    submit = SubmitField('Start Simulation')
 
     # def validate_sim_options(self, obj):
     #     # user = current_user.id:

@@ -8,9 +8,4 @@ main = Blueprint('main', __name__)
 @main.route("/")
 @main.route("/home")
 def home():
-    # user = User(username="admin",
-    #             email='admin@admin.com', password="admin")
-    # db.session.add(user)
-    # db.session.commit()
-
     return render_template('home.html', title='')

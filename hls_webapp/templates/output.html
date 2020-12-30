@@ -4,7 +4,7 @@
 <figure>
     <figcaption>Listen to your file:</figcaption>
     <audio id="sound1" controls>
-        <source src="{{audio_comp}}" type="audio/wav" />
+        <source src="{{ session.get('sound_out', None) }}" type="audio/wav" />
     </audio>
 </figure>
 

@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<form method="POST" action="" enctype="multipart/form-data">
+    {{ form_audiogram.hidden_tag() }}
+    <fieldset class="form-group">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    {{ form_audiogram.audiogram_name.label(class="form-control-label") }}
+                    {% if form_audiogram.audiogram_name.errors %}
+                    {{ form_audiogram.audiogram_name(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form_audiogram.audiogram_name.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form_audiogram.audiogram_name(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <h6>Enter the loss of decibels corresponding to each given frequency:</h6>
+                <div class="container">
+
+                    <div class="form-group">
+                        <div class="row d-flex justify-content-center">
+                            <label class="col-sm col-form-label pl-5">Left Ear Hearing Loss (dB)</label>
+                            <label class="col-sm col-form-label pl-5">Right Ear Hearing Loss
+                                (dB)</label>
+                        </div>
+                        <div class="row d-flex justify-content-center">
+                            {{form_audiogram.frequency_loss_left(class="form-control col-sm-5 my-1 mx-1 px-5
+                            justify-content-center", size=3)}}
+                            {{form_audiogram.frequency_loss_right(class="form-control col-sm-5 my-1 mx-1 px-5
+                            justify-content-center", size=3)}}
+                        </div>
+                        <div class="row d-flex justify-content-center">
+                            {{form_audiogram.compression_loss.label()}}
+                            {{form_audiogram.compression_loss(class="form-control my-1 mx-1 col-sm-5", size=3)}}
+                        </div>
+                        <div class="slidecontainer">
+                            <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_audiogram.submit(class="btn btn-outline-info") }}
+        </div>
+    </fieldset>
+</form>
+
+{% endblock content %}

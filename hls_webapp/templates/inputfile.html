@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<form method="POST" action="" enctype="multipart/form-data">
+    {{ form_inputFile.hidden_tag() }}
+    <fieldset class="form-group">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    {{ form_inputFile.audio.label() }}
+                    {{ form_inputFile.audio(class="form-control-file") }}
+                    {% if form_inputFile.audio.errors %}
+                    {% for error in form_inputFile.audio.errors %}
+                    <span class="text-danger">{{ error }}</span></br>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_inputFile.submit(class="btn btn-outline-info") }}
+        </div>
+    </fieldset>
+</form>
+
+
+
+
+
+{% endblock content%}

@@ -3,13 +3,25 @@
 
 <script type="text/javascript">
 
+    document.addEventListener("DOMContentLoaded", function () {
+        var s = "{{sound}}";
+        // The page is fully loaded
+        if (s == "True") {
+            fig = document.getElementById("soundoutfig");
+            fig.hidden = false;
+            var sound = document.getElementById("soundout");
+            sound.src = "{{sound_out}}";
+            sound.load();
+        }
+    });
     function changeFunc() {
-
+        var soundout = document.getElementById("soundoutfig")
+        soundout.hidden = true;
         var selectBox = document.getElementById("inlineFormCustomSelectPref");
         var file_name = selectBox.options[selectBox.selectedIndex].text;
         var file_path = "{{file_path}}";
         var full_file_path = file_path + file_name;
-        var sound = document.getElementById("sound");
+        var sound = document.getElementById("soundin");
         sound.src = full_file_path;
         sound.load();
 
@@ -22,35 +34,78 @@
         <form method="POST" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Sound files you uploaded:</legend>
-                <div class="form-group">
-                    {{ form.sound_group_id.label(class="form-control-label") }}
-                    {{ form.sound_group_id(class="custom-select my-1 mr-sm-2", id="inlineFormCustomSelectPref",
-                    onchange="changeFunc();") }}
+                <h4>Simulation of {{current_user.username}}'s auditory perception with audiogram </h4>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="form-group">
+                            {{ form.frequency_loss_group_id(class="custom-select my-1 mr-sm-2",
+                            onchange="changeFunc();") }}
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <h4>in sound file </h4>
+                    </div>
+                    <div class="col-5">
+                        <div class="form-group">
+                            {{ form.sound_group_id(class="custom-select my-1 mr-sm-2", id="inlineFormCustomSelectPref",
+                            onchange="changeFunc();") }}
+                        </div>
+                    </div>
                 </div>
-                <legend class="border-bottom mb-4">Audiograms you uploaded:</legend>
                 <div class="form-group">
-                    {{ form.frequency_loss_group_id.label(class="form-control-label") }}
-                    {{ form.frequency_loss_group_id(class="custom-select my-1 mr-sm-2", id="inlineFormCustomSelectPref",
-                    onchange="changeFunc();") }}
-                </div>
-                <div class="form-group">
-                    {{ form.submit(class="btn btn-outline-info") }}
+                    {{ form.submit(class="btn btn-info", onclick="dispSpinners();") }}
                 </div>
             </fieldset>
         </form>
     </div>
 </div>
 
-<figure>
-    <figcaption>Listen to your file:</figcaption>
-    <audio id="sound" controls type="audio/wav">
-        Your browser does not support the
-        <code>audio</code> element.
-    </audio>
-</figure>
-
-<div>
-    <a class="nav-item nav-link" href="{{ url_for('users.output') }}">This is your tranformed audio</a>
+<div class="d-flex">
+    <figure>
+        <figcaption>Original file:</figcaption>
+        <audio id="soundin" controls type="audio/wav">
+            Your browser does not support the
+            <code>audio</code> element.
+        </audio>
+    </figure>
+    <figure id="soundoutfig" hidden="true">
+        <figcaption>Transformed file:</figcaption>
+        <audio id="soundout" controls type="audio/wav">
+            Your browser does not support the
+            <code>audio</code> element.
+        </audio>
+    </figure>
+</div>
+<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+    <div class="bg-light mr-md-3 pt-3 px-3 pt-md-1 px-md-5 text-center overflow-hidden">
+        <h2 class="display-5">Instructions</h2>
+        <div class="my-3 p-3">
+            <ol style="text-align: left;">
+                <li>
+                    <p class="lead">Complete the sentence by selecting options from the dropdown menus.</p>
+                </li>
+                <li>
+                    <p class="lead">​Once you have made your selection, and after every instance in which you change the
+                        selection, press the "Start Simulation" button.</p>
+                </li>
+                <li>
+                    <p class="lead">You can play both the original sound file (normal hearing) and the modified sound
+                        file (impaired hearing). You may switch back and forth between the two options without
+                        restarting the simulator.</p>
+                </li>
+                <li>
+                    <p class="lead">To export the modified sound file (impaired hearing), select the "Download" button
+                    </p>
+                </li>
+            </ol>
+            <p class="lead">Input Sound: Select which sound file you would like to use for the simulation from the
+                dropdown menu. The menu options are based on the input files you have uploaded on your account page. If
+                you want to use a new file, upload it on the account page.
+                Setting: Select which setting you would like to use for the visual element of the simulation. The visual
+                element is a video of a generic scene. The purpose of this aspect of the simulator is to introduce some
+                distraction while trying to listen to the modified sound file. Hearing involves more than just the
+                auditory system and depends on cognitive load, fatigue, and attention. </p>
+        </div>
+    </div>
 </div>
 {% endblock content %}

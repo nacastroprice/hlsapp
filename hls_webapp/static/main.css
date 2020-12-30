@@ -1,12 +1,3 @@
-body {
-  background: #fafafa;
-  color: #333333;
-  margin-top: 5rem;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  color: #444444;
-}
 tbody {
   width: 100%;
 }
@@ -47,11 +38,6 @@ a.article-title:hover {
   white-space: pre-line;
 }
 
-.article-img {
-  height: 65px;
-  width: 65px;
-  margin-right: 16px;
-}
 
 .article-metadata {
   padding-bottom: 1px;
@@ -70,12 +56,6 @@ a.article-title:hover {
   vertical-align: middle;
 }
 
-.account-img {
-  height: 125px;
-  width: 125px;
-  margin-right: 20px;
-  margin-bottom: 16px;
-}
 
 .account-heading {
   font-size: 2.5rem;

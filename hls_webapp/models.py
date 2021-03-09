@@ -11,31 +11,41 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-sound_file_out_table = db.Table('sound_file_out_table',
-                                db.Column('sound_file_out_id', db.Integer, db.ForeignKey(
-                                    'sound_file_out.id'), primary_key=True),
-                                db.Column('user_id', db.Integer, db.ForeignKey(
-                                    'user.id'), primary_key=True),
-                                db.Column('sound_file_in_id', db.Integer, db.ForeignKey(
-                                    'sound_file_in.id'), primary_key=True),
-                                db.Column('decibel_loss_id', db.Integer, db.ForeignKey(
-                                    'decibel_loss.id'), primary_key=True)
-                                )
+# sound_file_out_table = db.Table('sound_file_out_table',
+#                                 db.Column('sound_file_out_id', db.Integer, db.ForeignKey(
+#                                     'sound_file_out.id')),
+#                                 db.Column('user_id', db.Integer, db.ForeignKey(
+#                                     'user.id')),
+#                                 db.Column('sound_file_in_id', db.Integer, db.ForeignKey(
+#                                     'sound_file_in.id')),
+#                                 db.Column('decibel_loss_id', db.Integer, db.ForeignKey(
+#                                     'decibel_loss.id'))
+#                                 )
 
 
 class User(db.Model, UserMixin):
+
+    """ User Model: one-to-many relationship with SoundFileIn and DecibelLoss"""
+
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
 
-    sound_file_in = db.relationship(
-        'SoundFileIn', secondary=sound_file_out_table, backref=db.backref('user', lazy='dynamic'), lazy=True)
-    sound_file_out = db.relationship(
-        'SoundFileOut', secondary=sound_file_out_table, backref=db.backref('user', lazy='dynamic'), lazy=True)
+    # many-to-many
+    sound_files_in = db.relationship(
+        'SoundFileIn', backref=db.backref('user'))
+    # sound_file_in = db.relationship(
+    #     'SoundFileIn', secondary=sound_file_out_table, backref=db.backref('user', lazy='dynamic'))
+    # one-to-many
+    # sound_file_out = db.relationship(
+    #     'SoundFileOut', secondary=sound_file_out_table, backref=db.backref('user', lazy='dynamic', cascade="all, delete-orphan"))
+    # one-to-many
     sim_data = db.relationship(
-        'DecibelLoss', secondary=sound_file_out_table, backref=db.backref('user', lazy='dynamic'), lazy=True)
+        'DecibelLoss', backref=db.backref('user'))
+    # sim_data = db.relationship(
+    #     'DecibelLoss', secondary=sound_file_out_table, backref=db.backref('user', lazy='dynamic', cascade="all, delete-orphan"))
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -55,6 +65,9 @@ class User(db.Model, UserMixin):
 
 
 class SoundFileIn(db.Model):
+
+    """ SoundFileIn model: relates back to user and contains file name of audio .wav """
+
     __tablename__ = 'sound_file_in'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
@@ -68,6 +81,9 @@ class SoundFileIn(db.Model):
 
 
 class DecibelLoss(db.Model):
+
+    """ DecibelLoss Model: Relates back to User and contains audiogram and compression loss data """
+
     __tablename__ = 'decibel_loss'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -97,52 +113,12 @@ class DecibelLoss(db.Model):
         return f"DecibelLoss('{self.hll125}','{self.hlr125}','{self.hll250}','{self.hlr250}','{self.hll500}','{self.hlr500}','{self.hll1000}','{self.hlr1000}','{self.hll2000}','{self.hlr2000}','{self.hll4000}','{self.hlr4000}','{self.hll8000}','{self.hlr8000}','{self.compress}','{self.id}','{self.user}')"
 
 
-class SoundFileOut(db.Model):
-    __tablename__ = 'sound_file_out'
-
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    file_name = db.Column(db.String(120), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-    def __repr__(self):
-        return f"SoundFileOut('{self.file_name}','{self.id}','{self.user_id}')"
-
-
-""" class SoundFileOut(db.Model):
-    __tablename__ = 'sound_file_out'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-
-    file_name = db.Column(db.String(120), nullable=False)
-
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-    sound_file_in = db.Column(db.Integer, db.ForeignKey('sound_file_in.id'), nullable=False)
-
-    frequency_loss = db.Column(db.Integer, db.ForeignKey('decibel_loss.id'), nullable=False)
-
-    def __repr__(self):
-        return f"SoundFileOut('{self.file_name}','{self.id}','{self.user_id}')" """
-
 # class SoundFileOut(db.Model):
 #     __tablename__ = 'sound_file_out'
-#     __table_args__ = (
-#         PrimaryKeyConstraint('sound_in_id', 'decibel_loss_id'),
-#         {})
 
+#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 #     file_name = db.Column(db.String(120), nullable=False)
-
 #     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-#     sound_in_id = db.Column(db.Integer, db.ForeignKey(
-#         'sound_file_in.id'), nullable=False)
-#     decibel_loss_id = db.Column(db.Integer, db.ForeignKey(
-#         'decibel_loss.id'), nullable=False)
-
-#     db.relationship('User', uselist=False,
-#                     backref='sound_file_out', lazy='dynamic')
-#     db.relationship('SoundFileIn', uselist=False,
-#                     backref='sound_file_out', lazy='dynamic')
-#     db.relationship('DecibelLoss', uselist=False,
-#                     backref='sound_file_out', lazy='dynamic')
 
 #     def __repr__(self):
-#         return f"SoundFileOut('{self.file_name}','{self.user_id}','{self.sound_in_id}','{self.decibel_loss_id}')"
+#         return f"SoundFileOut('{self.file_name}','{self.id}','{self.user_id}')"

@@ -12,7 +12,6 @@
 
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
-
   {% if title %}
   <title>Hearing Loss Simulator - {{ title }}</title>
   {% else %}
@@ -32,7 +31,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarToggle">
           <!-- Navbar Right Side -->
           <div class="navbar-nav">
-            <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
+            <a class="nav-item nav-link" href="{{ url_for('main.home') }}">About</a>
             {% if current_user.is_authenticated %}
             <a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a>
             <a class="nav-item nav-link"
@@ -47,9 +46,9 @@
       </div>
     </nav>
   </header>
-  <main role="main" class="container" style="background-color: #576099;">
+  <main role="main" class="container">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 p-2">
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, message in messages %}

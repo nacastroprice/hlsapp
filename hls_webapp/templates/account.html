@@ -1,24 +1,24 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div class="d-md-flex flex-md-equal w-100 my-md-1 pl-md-3">
+<div class="d-md-flex flex-md-equal w-100 m-1 p-3">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h2 class="border-bottom mb-4">Account Info</h2>
             </div>
         </div>
-        <div class="row pl-3">
-            <div class="col-md-9 bg-light p-md-1">
+        <div class="row m-1">
+            <div class="col-md-9">
                 <form>
-                    <div class="form-group row pt-1">
+                    <div class="form-group row">
                         <label for="staticUsername" class="col-sm-2 col-form-label pr-md-1 pl-md-4">Username</label>
                         <div class="col-sm-7">
                             <input type="text" readonly class="form-control" id="staticUsername"
                                 placeholder="{{current_user.username}}">
                         </div>
                     </div>
-                    <div class="form-group row mb-2">
+                    <div class="form-group row">
                         <label for="staticEmail" class="col-sm-2 col-form-label pr-md-1 pl-md-4">Email</label>
                         <div class="col-sm-7">
                             <input type="text" readonly class="form-control" id="staticEmail"
@@ -28,57 +28,79 @@
                 </form>
             </div>
         </div>
-
-        <div class="row bg-light my-3 ml-0">
-            <div class="col-12">
+        <hr />
+        <div class="row m-1">
+            <div class="col-12 bg-steel-light">
                 <h4>Audiograms</h4>
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="Name">First</th>
-                            <th scope="col">Speech Intelligibility Score</th>
-                            <th scope="col">View</th>
+                            <th scope="col" style="text-align: center;">Speech Intelligibility Score</th>
+                            <th scope="col" style="text-align: center;">View</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for g in choices_audiogram %}
                         <tr>
                             <td>{{ g[1] }}</td>
-                            <td>{{ g[2] }}</td>
-                            <td><button>View/Edit</button></td>
+                            <td style="text-align: center;">{{ g[2] }}</td>
+                            <td style="text-align: center;">
+                                <div>
+                                    <div>
+                                        <a class="btn btn-secondary btn-sm"
+                                            href="{{url_for('users.update_user_audiogram', username=current_user.username, audiogram_id=g[0])}}"
+                                            style="width: 58px;">
+                                            Edit
+                                        </a>
+                                    </div>
+                                    <form
+                                        action="{{url_for('users.delete_user_audiogram', username=current_user.username, audiogram_id=g[0])}}"
+                                        method="POST">
+                                        <input type="Submit" class="btn btn-danger btn-sm ml-3" value="Delete"
+                                            style="width: 58px;">
+                                    </form>
+                                </div>
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
-                <form action="{{url_for('users.user_audiogramsetup', username=current_user.username)}}">
-                    <input type="submit" value="Add +" />
+                <form action="{{url_for('users.user_audiogram', username=current_user.username)}}"
+                    style="padding-left: 2rem;">
+                    <input class="btn btn-secondary" type="submit" value="Add" />
                 </form>
             </div>
         </div>
-
-        <div class="row bg-light my-3 ml-0">
-            <div class="col-12">
+        <hr />
+        <div class="row m-1">
+            <div class="col-12 bg-steel-light">
                 <h4>Input Files</h4>
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="Name">Name</th>
-                            <th scope="col">-</th>
+                            <th scope="Name"></th>Name</th>
+                            <th scope="col" style="text-align: center;"></th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for g in choices_audio %}
                         <tr>
                             <td>{{ g[1] }}</td>
-                            <td><button>Play</button></td>
+                            <td style="text-align: center;">
+                                <audio id="sound_table" controls>
+                                    <source src="{{'/' + path_in + g[1]}}" type="audio/wav" />
+                                </audio>
+                            </td>
 
 
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
-                <form action="{{url_for('users.user_inputfile', username=current_user.username)}}">
-                    <input type="submit" value="Add +" />
+                <form action="{{url_for('users.user_inputfile', username=current_user.username)}}"
+                    style="padding-left: 2rem;">
+                    <input class="btn btn-secondary" type="submit" value="Add" />
                 </form>
             </div>
         </div>

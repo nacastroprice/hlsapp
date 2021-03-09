@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<form method="POST" action="" enctype="multipart/form-data">
+<form method="POST" action="" enctype="multipart/form-data" style="padding: 0;">
     {{ form_inputFile.hidden_tag() }}
-    <fieldset class="form-group">
+    <fieldset class="form-group" style="margin: 0%;">
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="form-group">
-            {{ form_inputFile.submit(class="btn btn-outline-info") }}
+            {{form_inputFile.submit(class="btn btn-info") }}
         </div>
     </fieldset>
 </form>

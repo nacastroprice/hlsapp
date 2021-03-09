@@ -22,7 +22,7 @@ def create_app(config_class=Config):
     sess.init_app(app)
     db.init_app(app)
 
-    from hls_webapp.models import User, SoundFileIn, DecibelLoss, SoundFileOut
+    from hls_webapp.models import User, SoundFileIn, DecibelLoss
 
     with app.app_context():
         db.create_all()

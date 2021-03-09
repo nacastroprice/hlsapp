@@ -3,52 +3,132 @@
 
 <form method="POST" action="" enctype="multipart/form-data">
     {{ form_audiogram.hidden_tag() }}
-    <fieldset class="form-group">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    {{ form_audiogram.audiogram_name.label(class="form-control-label") }}
-                    {% if form_audiogram.audiogram_name.errors %}
-                    {{ form_audiogram.audiogram_name(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form_audiogram.audiogram_name.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    {{ form_audiogram.audiogram_name(class="form-control form-control-lg") }}
-                    {% endif %}
+    <div class="container">
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">{{legend}}</legend>
+            <div class="form-group">
+                {{ form_audiogram.audiogram_name.label(class="form-control-label") }}
+                {% if form_audiogram.audiogram_name.errors %}
+                {{ form_audiogram.audiogram_name(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form_audiogram.audiogram_name.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
                 </div>
-                <h6>Enter the loss of decibels corresponding to each given frequency:</h6>
-                <div class="container">
+                {% else %}
+                {{ form_audiogram.audiogram_name(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <h6>Enter the loss of decibels corresponding to each given frequency:</h6>
+            <div class="container">
+                <div class="form-group">
+                    <table class="table" style="text-align: center;">
+                        <thead>
+                            <tr>
+                                <th>Frequency (Htz)</th>
+                                <th>Left Ear Hearing Loss (dB)</th>
+                                <th>Right Ear Hearing Loss(dB)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {{form_audiogram.hlleft125.label()}}
+                                </td>
+                                <td>
+                                    {{form_audiogram.hlleft125(class="form-control")}}
+                                </td>
+                                <td>
+                                    {{form_audiogram.hlright125(class="form-control")}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{form_audiogram.hlleft250.label()}}
+                                </td>
+                                <td>
+                                    {{form_audiogram.hlleft250(class="form-control")}}
+                                </td>
+                                <td>
+                                    {{form_audiogram.hlright250(class="form-control")}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{form_audiogram.hlleft500.label()}}
+                                </td>
+                                <td>
+                                    {{form_audiogram.hlleft500(class="form-control")}}
+                                </td>
+                                <td>
+                                    {{form_audiogram.hlright500(class="form-control")}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{form_audiogram.hlleft1000.label()}}
+                                </td>
+                                <td>
+                                    {{form_audiogram.hlleft1000(class="form-control")}}
+                                </td>
+                                <td>
+                                    {{form_audiogram.hlright1000(class="form-control")}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{form_audiogram.hlleft2000.label()}}
+                                </td>
+                                <td>
+                                    {{form_audiogram.hlleft2000(class="form-control")}}
+                                </td>
+                                <td>
+                                    {{form_audiogram.hlright2000(class="form-control")}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{form_audiogram.hlleft4000.label()}}
+                                </td>
+                                <td>
+                                    {{form_audiogram.hlleft4000(class="form-control")}}
+                                </td>
+                                <td>
+                                    {{form_audiogram.hlright4000(class="form-control")}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{form_audiogram.hlleft8000.label()}}
+                                </td>
+                                <td>
+                                    {{form_audiogram.hlleft8000(class="form-control")}}
+                                </td>
+                                <td>
+                                    {{form_audiogram.hlright8000(class="form-control")}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                    <div class="form-group">
-                        <div class="row d-flex justify-content-center">
-                            <label class="col-sm col-form-label pl-5">Left Ear Hearing Loss (dB)</label>
-                            <label class="col-sm col-form-label pl-5">Right Ear Hearing Loss
-                                (dB)</label>
-                        </div>
-                        <div class="row d-flex justify-content-center">
-                            {{form_audiogram.frequency_loss_left(class="form-control col-sm-5 my-1 mx-1 px-5
-                            justify-content-center", size=3)}}
-                            {{form_audiogram.frequency_loss_right(class="form-control col-sm-5 my-1 mx-1 px-5
-                            justify-content-center", size=3)}}
-                        </div>
-                        <div class="row d-flex justify-content-center">
-                            {{form_audiogram.compression_loss.label()}}
-                            {{form_audiogram.compression_loss(class="form-control my-1 mx-1 col-sm-5", size=3)}}
-                        </div>
-                        <div class="slidecontainer">
-                            <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-                        </div>
+                    <div class="row m-3 justify-content-center align-items-center">
+                        {{form_audiogram.compression_loss.label()}}
+                        {{form_audiogram.compression_loss(class="form-control my-1 mx-1 col-sm-5 ", size=3)}}
+                        <h7 style="padding-left: 21%;
+                        padding-right: 14%;">
+                            * This is an informal measure of speech intelligibility. 10 means you have no trouble
+                            distinguishing words from
+                            each other and 0 means that it is a great challenge.
+                        </h7>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            {{ form_audiogram.submit(class="btn btn-outline-info") }}
-        </div>
-    </fieldset>
+            <div class="form-group">
+                {{ form_audiogram.submit(class="btn btn-outline-info") }}
+            </div>
+        </fieldset>
+    </div>
 </form>
+
 
 {% endblock content %}

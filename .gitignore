@@ -37,3 +37,5 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
+# wav files
+*.wav

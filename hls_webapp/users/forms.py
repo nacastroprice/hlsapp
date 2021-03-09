@@ -9,6 +9,9 @@ from flask_wtf.file import FileField, FileAllowed
 
 
 class RegistrationForm(FlaskForm):
+
+    """ User Registration Form """
+
     username = StringField('Username',
                            validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email',
@@ -32,6 +35,8 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
+    """ User Login Form """
+
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -39,7 +44,15 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 
-class SimulationFreqFormL(FlaskForm):
+class CombinedAudiogramForm(FlaskForm):
+
+    """ Audiogram Form: User inputted audiogram data """
+
+    audiogram_name = StringField('Give this audiogram a name',
+                                 validators=[DataRequired(), Length(min=2, max=120)])
+
+    compression_loss = IntegerField('compression_loss (0-10):', validators=[
+        NumberRange(min=0, max=10)])
 
     hlleft125 = IntegerField('125', validators=[DataRequired(), NumberRange(
         min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
@@ -55,10 +68,6 @@ class SimulationFreqFormL(FlaskForm):
         min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
     hlleft8000 = IntegerField('8000', validators=[DataRequired(), NumberRange(
         min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
-
-
-class SimulationFreqFormR(FlaskForm):
-
     hlright125 = IntegerField('125', validators=[DataRequired(), NumberRange(
         min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
     hlright250 = IntegerField('250', validators=[DataRequired(), NumberRange(
@@ -74,20 +83,7 @@ class SimulationFreqFormR(FlaskForm):
     hlright8000 = IntegerField('8000', validators=[DataRequired(), NumberRange(
         min=0, max=130, message='Value cannot be less than 0 or greater than 130')])
 
-
-class CombinedAudiogramForm(FlaskForm):
-
-    audiogram_name = StringField('Give this audiogram a name',
-                                 validators=[DataRequired(), Length(min=2, max=120)])
-
-    frequency_loss_left = FormField(SimulationFreqFormL)
-
-    frequency_loss_right = FormField(SimulationFreqFormR)
-
-    compression_loss = IntegerField('compression_loss (0-10):', validators=[
-        NumberRange(min=0, max=10)])
-
-    submit = SubmitField('Add')
+    submit = SubmitField('Submit')
 
     def validate_username(self, username):
         if username.data != current_user.username:
@@ -105,6 +101,8 @@ class CombinedAudiogramForm(FlaskForm):
 
 
 class InputAudioForm(FlaskForm):
+    """ InputAudio Form: User can upload a wav audio file """
+
     audio = FileField('Upload .wav file', validators=[FileAllowed(['wav'])])
     submit = SubmitField('Add')
 
@@ -123,42 +121,8 @@ class InputAudioForm(FlaskForm):
                     'That email is taken. Please choose a different one.')
 
 
-class UpdateAccountForm(FlaskForm):
-    username = StringField('Username',
-                           validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email',
-                        validators=[DataRequired(), Email()])
-
-    audio = FileField('Upload .wav file', validators=[FileAllowed(['wav'])])
-
-    audiogram_name = StringField('Give this audiogram a name',
-                                 validators=[DataRequired(), Length(min=2, max=120)])
-
-    frequency_loss_left = FormField(SimulationFreqFormL)
-
-    frequency_loss_right = FormField(SimulationFreqFormR)
-
-    compression_loss = IntegerField('compression_loss (0-10):', validators=[
-        NumberRange(min=0, max=10)])
-
-    submit = SubmitField('Update')
-
-    def validate_username(self, username):
-        if username.data != current_user.username:
-            user = User.query.filter_by(username=username.data).first()
-            if user:
-                raise ValidationError(
-                    'That username is taken. Please choose a different one.')
-
-    def validate_email(self, email):
-        if email.data != current_user.email:
-            user = User.query.filter_by(email=email.data).first()
-            if user:
-                raise ValidationError(
-                    'That email is taken. Please choose a different one.')
-
-
 class RequestResetForm(FlaskForm):
+    """ Request password reset form"""
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
     submit = SubmitField('Request Password Reset')
@@ -171,6 +135,8 @@ class RequestResetForm(FlaskForm):
 
 
 class ResetPasswordForm(FlaskForm):
+    """ New password Form """
+
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired(), EqualTo('password')])

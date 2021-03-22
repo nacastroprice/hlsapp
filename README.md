@@ -20,10 +20,6 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![MIT License][license-shield]][license-url]
-
-
-
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -42,13 +38,6 @@ The audio simulation is performed with Samuel Garcias HearingLossSimulator pytho
 * [Bootstrap](https://getbootstrap.com/)
 * [MySQL](https://www.mysql.com/)
 * [HearingLossSimulator by Samuel Garcia](https://github.com/samuelgarcia/HearingLossSimulator)
-
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
 
 
 <!-- CONTACT -->

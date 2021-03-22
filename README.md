@@ -60,13 +60,6 @@ Project Link: [https://github.com/nacastroprice/hlsapp](https://github.com/nacas
 
 
 
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-
-* []()
-* []()
-* []()
-
 
 
 

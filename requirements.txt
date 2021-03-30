@@ -70,7 +70,7 @@ prompt-toolkit==3.0.8
 pybind11==2.4.3
 pycodestyle==2.6.0
 pycparser==2.20
-Pygments==2.7.3
+Pygments==2.7.4
 pylint==2.4.4
 pyopencl==2019.1.2
 pyparsing==2.4.7
